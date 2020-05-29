@@ -8,24 +8,29 @@
       "schematics": {},
       "root": "",
       "sourceRoot": "src",
+      "i18n": {
+        "sourceLocale": "en",
+        "locales": {
+          "fr": {
+            "translation": "src/i18n/messages.fr.xlf",
+            "baseHref": "fr/"
+          }
+        }
+      },
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-universal-i18n-demo",
+            "outputPath": "dist/angular-universal-i18n-demo/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
+            "localize": true,
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -56,6 +61,13 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "fr": {
+              "aot": true,
+              "outputPath": "dist/angular-universal-i18n-demo-fr",
+              "i18nFile": "src/i18n/messages.fr.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "fr"
             }
           }
         },
@@ -67,6 +79,9 @@
           "configurations": {
             "production": {
               "browserTarget": "angular-universal-i18n-demo:build:production"
+            },
+            "fr": {
+              "browserTarget": "angular-universal-i18n-demo:build:fr"
             }
           }
         },
@@ -83,13 +98,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
             "scripts": []
           }
         },
@@ -101,9 +111,7 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
@@ -117,8 +125,78 @@
               "devServerTarget": "angular-universal-i18n-demo:serve:production"
             }
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/angular-universal-i18n-demo/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
+            },
+            "localize": {
+              "outputHashing": "media",
+              "localize": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
+            }
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "angular-universal-i18n-demo:build",
+            "serverTarget": "angular-universal-i18n-demo:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "angular-universal-i18n-demo:build:production",
+              "serverTarget": "angular-universal-i18n-demo:server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "angular-universal-i18n-demo:build:production",
+            "serverTarget": "angular-universal-i18n-demo:server:localize",
+            "routes": ["/"]
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "xliffmerge": {
+          "builder": "@ngx-i18nsupport/tooling:xliffmerge",
+          "options": {
+            "xliffmergeOptions": {
+              "i18nFormat": "xlf",
+              "srcDir": "src/i18n",
+              "genDir": "src/i18n",
+              "defaultLanguage": "en",
+              "languages": ["en", "fr"]
+            }
+          }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "angular-universal-i18n-demo"
 }
