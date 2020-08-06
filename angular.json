@@ -136,17 +136,6 @@
           "configurations": {
             "production": {
               "outputHashing": "media",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "sourceMap": false,
-              "optimization": true
-            },
-            "localize": {
-              "outputHashing": "media",
               "localize": true,
               "fileReplacements": [
                 {
@@ -176,7 +165,7 @@
           "builder": "@nguniversal/builders:prerender",
           "options": {
             "browserTarget": "angular-universal-i18n-demo:build:production",
-            "serverTarget": "angular-universal-i18n-demo:server:localize",
+            "serverTarget": "angular-universal-i18n-demo:server:production",
             "routes": ["/"]
           },
           "configurations": {

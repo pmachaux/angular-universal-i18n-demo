@@ -12,6 +12,7 @@ import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
 import * as proxy from 'http-proxy-middleware';
+import { environment } from 'src/environments/environment';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(lang: string) {
@@ -82,7 +83,10 @@ function run() {
 declare const __non_webpack_require__: NodeRequire;
 const mainModule = __non_webpack_require__.main;
 const moduleFilename = (mainModule && mainModule.filename) || '';
-if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
+if (
+  (!environment.production && moduleFilename === __filename) ||
+  moduleFilename.includes('iisnode')
+) {
   run();
 }
 
