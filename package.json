@@ -9,8 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "dev:ssr": "ng run angular-universal-i18n-demo:serve-ssr",
-    "serve:ssr": "cpx proxy-server.js dist/angular-universal-i18n-demo && node dist/angular-universal-i18n-demo/proxy-server.js",
-    "build:ssr": "ng build --prod && ng run angular-universal-i18n-demo:server:production",
+    "serve:ssr": "node dist/angular-universal-i18n-demo/proxy-server.js",
+    "build:ssr": "ng build --prod && ng run angular-universal-i18n-demo:server:production && cpx proxy-server.js dist/angular-universal-i18n-demo",
     "prerender": "ng run angular-universal-i18n-demo:prerender",
     "extract-i18n": "ng xi18n angular-universal-i18n-demo --i18n-format xlf --output-path src/i18n --i18n-locale en && ng run angular-universal-i18n-demo:xliffmerge",
     "start-fr": "ng serve --configuration=fr"
