@@ -29,7 +29,7 @@
     "@angular/router": "~9.1.0",
     "@nguniversal/express-engine": "^9.1.1",
     "@ngx-i18nsupport/tooling": "^8.0.3",
-    "express": "^4.15.2",
+    "express": "^4.18.2",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
